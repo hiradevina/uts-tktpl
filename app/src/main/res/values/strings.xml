@@ -23,4 +23,6 @@
     <string name="addprofile_golongandarah_placeholder">Golongan Darah</string>
     <string name="addprofile_notelp_placeholder">Nomor telepon</string>
     <string name="addprofile_button_title">Submit</string>
+    <!--    Detail Orang Terpercaya-->
+    <string name="detailorangterpercaya_button_title">Pilih sebagai orang terpercaya</string>
 </resources>

@@ -11,4 +11,12 @@ class ProfileRepository(private val profileDao: ProfileDao) {
     fun add(profile: Profile) {
         profileDao.register(profile)
     }
+
+    fun isProfileExist(): Boolean {
+        return !profiles.value.isNullOrEmpty()
+    }
+
+    fun get(id: Int): Profile? {
+        return profileDao.get().value?.first()
+    }
 }

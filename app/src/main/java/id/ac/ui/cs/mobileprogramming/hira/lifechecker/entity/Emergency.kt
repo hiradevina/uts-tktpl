@@ -15,5 +15,6 @@ class Emergency(
     val latFinish: Double,
     val lngFinish: Double,
     val duration: Duration,
-    val orangTerpercaya: OrangTerpercaya
+    val orangTerpercaya: OrangTerpercaya,
+    val isActive: Boolean
 )

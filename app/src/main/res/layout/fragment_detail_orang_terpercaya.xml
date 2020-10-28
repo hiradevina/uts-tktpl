@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="OrangTerpercaya"
+            type="id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.OrangTerpercaya" />
+    </data>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.list_orang_terpercaya.DetailOrangTerpercaya">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/orangterpercaya_foto"
+                android:src="@{OrangTerpercaya.foto}"
+                android:layout_height="100dp"
+                android:layout_width="100dp"
+                app:shapeAppearanceOverlay="@style/circleImageView"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/placeholder_relasi"
+                android:textColor="#000000"
+                android:text="@{OrangTerpercaya.relasi}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:id="@+id/placeholder_nama"
+                android:textColor="#000000"
+                android:text="@{OrangTerpercaya.nama}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:id="@+id/placeholder_telp"
+                android:textColor="#000000"
+                android:text="@{OrangTerpercaya.notelp}"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/detailorangterpercaya_button_title"/>
+        </LinearLayout>
+
+
+    </FrameLayout>
+</layout>

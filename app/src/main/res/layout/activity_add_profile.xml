@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="AddProfileViewModel"
             type="id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.add_profile.AddProfileViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.add_profile.AddProfileActivity">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -25,70 +30,71 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/addprofile_description"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center" />
 
                 <TextView
-                    android:paddingTop="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
                     android:text="@string/addprofile_name_placeholder" />
+
                 <EditText
                     android:id="@+id/edit_name_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textAutoComplete"
-                    android:textSize="18sp"
-                    android:text="@={AddProfileViewModel.nama}"/>
+                    android:text="@={AddProfileViewModel.nama}"
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:paddingTop="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
                     android:text="@string/addorangterpercaya_notelp_placeholder" />
+
                 <EditText
                     android:id="@+id/edit_notelp_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
-                    android:textSize="18sp"
                     android:text="@={AddProfileViewModel.notelp}"
-                    />
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:paddingTop="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
                     android:text="@string/addprofile_alamat_placeholder" />
+
                 <EditText
                     android:id="@+id/edit_alamat_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textAutoComplete"
-                    android:textSize="18sp"
                     android:text="@={AddProfileViewModel.alamat}"
-                    />
+                    android:textSize="18sp" />
 
                 <TextView
-                    android:paddingTop="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
                     android:text="@string/addprofile_golongandarah_placeholder" />
+
                 <EditText
                     android:id="@+id/edit_golongandarah_profile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textAutoComplete"
-                    android:textSize="18sp"
                     android:text="@={AddProfileViewModel.golonganDarah}"
-                    />
+                    android:textSize="18sp" />
 
                 <Button
-                    android:enabled="@{AddProfileViewModel.valid}"
-                    android:paddingTop="8dp"
+                    android:id="@+id/addprofile_button_submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/addprofile_button_title"
-                    android:id="@+id/addorangterpercaya_button_submit"/>
+                    android:enabled="@{AddProfileViewModel.valid}"
+                    android:paddingTop="8dp"
+                    android:text="@string/addprofile_button_title" />
             </LinearLayout>
         </ScrollView>
 

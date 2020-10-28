@@ -10,4 +10,8 @@ class OrangTerpercayaRepository(private val orangTerpercayaDao: OrangTerpercayaD
     fun add(orangTerpercaya: OrangTerpercaya) {
         orangTerpercayaDao.addOrangTerpercaya(orangTerpercaya)
     }
+
+    fun get(id: Int): OrangTerpercaya {
+        return orangTerpercayaDao.getOrangTerpercaya(id)
+    }
 }
