@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Lifechecker</string>
+    <string name="title_activity_orang_terpercaya">OrangTerpercayaActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!--    Add Orang Terpercaya-->
+    <string name="addorangterpercaya_description">Silakan isi data diri orang yang Anda percaya. Data diri ini akan digunakan saat Anda berada dalam bahaya.</string>
+    <string name="addorangterpercaya_name_placeholder">Nama</string>
+    <string name="addorangterpercaya_relasi_placeholder">Relasi</string>
+    <string name="addorangterpercaya_notelp_placeholder">Nomor telepon</string>
+    <string name="addorangterpercaya_foto_placeholder">Tambahkan foto orang yang Anda percaya</string>
+    <string name="addorangterpercaya_button_title">Tambah Orang Terpercaya</string>
+    <!--    Add Profile-->
+    <string name="addprofile_description">Silakan isi data diri Anda. Data diri yang Anda berikan akan dibagikan kepada orang terpercaya Anda jika Anda sedang dalam bahaya.</string>
+    <string name="addprofile_name_placeholder">Nama</string>
+    <string name="addprofile_alamat_placeholder">Alamat</string>
+    <string name="addprofile_golongandarah_placeholder">Golongan Darah</string>
+    <string name="addprofile_notelp_placeholder">Nomor telepon</string>
+    <string name="addprofile_button_title">Submit</string>
+</resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="orang_terpercaya_form"
+            type="id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.add_orang_terpercaya.AddOrangTerpercayaViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.add_orang_terpercaya.AddOrangTerpercayaActivity">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/addorangterpercaya_description"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:paddingTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/addorangterpercaya_name_placeholder" />
+                <EditText
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textAutoComplete"
+                    android:textSize="18sp"
+                    android:text="@={orang_terpercaya_form.nama}"/>
+
+                <TextView
+                    android:paddingTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/addorangterpercaya_relasi_placeholder" />
+                <EditText
+                    android:id="@+id/edit_relasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textAutoComplete"
+                    android:textSize="18sp"
+                    android:text="@={orang_terpercaya_form.relasi}"
+                    />
+
+                <TextView
+                    android:paddingTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/addorangterpercaya_notelp_placeholder" />
+                <EditText
+                    android:id="@+id/edit_notelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:textSize="18sp"
+                    android:text="@={orang_terpercaya_form.notelp}"
+                    />
+
+                <Button
+                    android:visibility="@{orang_terpercaya_form.showAddPhotoButton()}"
+                    android:paddingTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/addorangterpercaya_foto_placeholder"
+                    android:id="@+id/foto_button" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="500dp"
+                    android:id="@+id/foto_placeholder" />
+
+                <Button
+                    android:enabled="@{orang_terpercaya_form.valid}"
+                    android:paddingTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/addorangterpercaya_button_title"
+                    android:id="@+id/addorangterpercaya_button_submit"/>
+            </LinearLayout>
+        </ScrollView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
