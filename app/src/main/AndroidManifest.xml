@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.add_emergency.AddEmergencyActivity"></activity>
+        <activity android:name=".ui.list_emergency.ListEmergencyActivity"></activity>
+        <activity android:name=".ui.add_emergency.AddEmergencyActivity" />
         <activity android:name=".ui.add_profile.AddProfileActivity" />
         <activity android:name=".ui.add_orang_terpercaya.AddOrangTerpercayaActivity" />
         <activity
