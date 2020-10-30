@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lifechecker</string>
+    <string name="title_activity_orang_terpercaya">Trusted People</string>
+    <string name="next">Selanjutnya</string>
+    <string name="previous">Kembali</string>
+    <string name="addorangterpercaya_description">Please fill in the details of the person you trust. This personal data will be used when you are in danger.</string>
+    <string name="addorangterpercaya_name_placeholder">Name</string>
+    <string name="addorangterpercaya_relasi_placeholder">Relation</string>
+    <string name="addorangterpercaya_notelp_placeholder">Phone Number</string>
+    <string name="addorangterpercaya_foto_placeholder">Add a photo of people you trust</string>
+    <string name="addorangterpercaya_button_title">Add trusted people</string>
+    <string name="addprofile_description">Please fill in your personal data. The personal data you provide will be shared with your trusted people if you are in danger.</string>
+    <string name="addprofile_name_placeholder">Name</string>
+    <string name="addprofile_alamat_placeholder">Address</string>
+    <string name="addprofile_golongandarah_placeholder">Blood type</string>
+    <string name="addprofile_notelp_placeholder">Phone number</string>
+    <string name="addprofile_button_title">Submit</string>
+    <string name="detailorangterpercaya_button_title">Select as trusted person</string>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>

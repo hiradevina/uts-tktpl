@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Lifechecker</string>
-    <string name="title_activity_orang_terpercaya">OrangTerpercayaActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -25,4 +24,5 @@
     <string name="addprofile_button_title">Submit</string>
     <!--    Detail Orang Terpercaya-->
     <string name="detailorangterpercaya_button_title">Pilih sebagai orang terpercaya</string>
+    <string name="title_activity_orang_terpercaya">List Orang Terpercaya</string>
 </resources>
