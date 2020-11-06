@@ -25,4 +25,10 @@
     <!--    Detail Orang Terpercaya-->
     <string name="detailorangterpercaya_button_title">Pilih sebagai orang terpercaya</string>
     <string name="title_activity_orang_terpercaya">List Orang Terpercaya</string>
+    <string name="addemergency_subtitle">Nyalakan timer lifecheker untuk:</string>
+    <string name="addemergency_buttonorangterpercaya_title">Pilih orang terpercaya yang ingin Anda beritahu</string>
+    <string name="addemergency_buttonfoto_title">Foto keadaan sekitarmu sekarang</string>
+    <string name="addemergency_addbutton_title">Nyalakan Lifechecker</string>
+    <string name="fab_tambahorangterpercaya_title">Tambah Orang Terpercaya</string>
+    <string name="permission_rationale">Pilih \"Don\'t ask again\" untuk hilangkan ini</string>
 </resources>

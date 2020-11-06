@@ -15,7 +15,7 @@ class Emergency(
     val timestampFinish: Timestamp,
     val latFinish: Double,
     val lngFinish: Double,
-    val duration: Duration,
+    val duration: Int,
     val orangTerpercaya: OrangTerpercaya,
     val isActive: Boolean
 ) {

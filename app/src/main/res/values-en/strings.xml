@@ -21,4 +21,10 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="addemergency_subtitle">Turn on lifecheker timer for:</string>
+    <string name="addemergency_buttonorangterpercaya_title">Select one trusted person</string>
+    <string name="addemergency_buttonfoto_title">Take a picture of your current surrounding</string>
+    <string name="addemergency_addbutton_title">Turn On Lifechecker</string>
+    <string name="fab_tambahorangterpercaya_title">Add Trusted Person</string>
+    <string name="permission_rationale">Select \"Don\'t Ask Again\" to remove this</string>
 </resources>
