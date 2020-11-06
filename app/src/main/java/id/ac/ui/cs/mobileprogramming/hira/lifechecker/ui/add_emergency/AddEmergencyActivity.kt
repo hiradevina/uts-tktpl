@@ -181,7 +181,7 @@ class AddEmergencyActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK){
             //set image captured to image view
             addemergency_foto_placeholder.setImageURI(image_uri)
-            viewModel.fotoUri.value = image_uri
+            viewModel.fotoUri.value = image_uri.toString()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
