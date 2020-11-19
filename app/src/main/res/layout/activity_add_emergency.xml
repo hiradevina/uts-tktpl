@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/MyMaterialTheme">
     <data>
         <variable
             name="ViewModel"
@@ -12,96 +13,102 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.add_emergency.AddEmergencyActivity">
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/addemergency_subtitle" />
-
+            android:layout_height="match_parent">
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="@={ViewModel.hour}"
-                    android:maxLength="2" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:text=":" />
+                    android:text="@string/addemergency_subtitle" />
 
-                <EditText
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="@={ViewModel.minute}"
-                    android:maxLength="2" />
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text="@={ViewModel.hour}"
+                        android:maxLength="2" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text=":" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text="@={ViewModel.minute}"
+                        android:maxLength="2" />
 
 
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:text=":" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:text="@={ViewModel.second}"
+                        android:maxLength="2" />
+
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/addemergency_selectorangterpercaya_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:padding="8dp"
+                    android:text="@string/addemergency_buttonorangterpercaya_title" />
+
+                <Button
+                    android:id="@+id/addemergency_foto_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="@string/addemergency_buttonfoto_title" />
+
+                <ImageView
+                    android:id="@+id/addemergency_foto_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="300dp" />
+
+                <Button
+                    android:id="@+id/addemergency_submit_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="@string/addemergency_addbutton_title" />
+
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                    android:id="@+id/fab_tambahorangterpercaya"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8dp"
-                    android:text=":" />
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:text="@={ViewModel.second}"
-                    android:maxLength="2" />
-
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:text="@string/fab_tambahorangterpercaya_title" />
 
             </LinearLayout>
+        </ScrollView>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="8dp"
-                android:padding="8dp"
-                android:text="@string/addemergency_buttonorangterpercaya_title" />
 
-            <Button
-                android:id="@+id/addemergency_foto_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:text="@string/addemergency_buttonfoto_title" />
-
-            <ImageView
-                android:id="@+id/addemergency_foto_placeholder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxHeight="300dp" />
-
-            <Button
-                android:id="@+id/addemergency_submit_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:text="@string/addemergency_addbutton_title" />
-
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/fab_tambahorangterpercaya"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:text="@string/fab_tambahorangterpercaya_title" />
-
-        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

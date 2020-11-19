@@ -1,6 +1,5 @@
 package id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.list_emergency
 
-import EmergencyAdapter
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.R
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.adapter.EmergencyAdapter
 import kotlinx.android.synthetic.main.list_emergency_fragment.*
 
 class ListEmergencyFragment : Fragment() {

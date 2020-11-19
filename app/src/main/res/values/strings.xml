@@ -31,4 +31,5 @@
     <string name="addemergency_addbutton_title">Nyalakan Lifechecker</string>
     <string name="fab_tambahorangterpercaya_title">Tambah Orang Terpercaya</string>
     <string name="permission_rationale">Pilih \"Don\'t ask again\" untuk hilangkan ini</string>
+    <string name="button_stop">Stop Lifecheck</string>
 </resources>

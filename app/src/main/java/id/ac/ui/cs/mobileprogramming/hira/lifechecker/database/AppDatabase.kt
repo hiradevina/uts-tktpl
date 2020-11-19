@@ -1,15 +1,17 @@
 package id.ac.ui.cs.mobileprogramming.hira.lifechecker.database
 
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.MyTypeConverter
 import android.content.Context
-import androidx.room.Room
-import androidx.room.Database
-import androidx.room.RoomDatabase
+import androidx.room.*
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.dao.EmergencyDao
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.OrangTerpercaya
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.dao.OrangTerpercayaDao
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.dao.ProfileDao
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.Profile
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.Emergency
 
-@Database(entities = [OrangTerpercaya::class], exportSchema = false, version = 1)
+@Database(entities = [OrangTerpercaya::class, Profile::class, Emergency::class], exportSchema = false, version = 1)
+@TypeConverters(MyTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     // daos
     abstract fun orangTerpercayaDao(): OrangTerpercayaDao

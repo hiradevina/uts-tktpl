@@ -31,6 +31,6 @@
             android:textStyle="bold"
             android:id="@+id/placeholder_telp"
             android:textColor="#000000"
-            android:text="@{Emergency.orangTerpercaya.nama}"/>
+            android:text="@{Emergency.orangTerpercaya}"/>
     </LinearLayout>
 </layout>

@@ -2,29 +2,32 @@ package id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Timestamp
+import androidx.room.TypeConverters
 import java.text.SimpleDateFormat
-import java.time.Duration
+import java.util.*
 
 @Entity(tableName = "emergency")
+@TypeConverters(MyTypeConverter::class)
 class Emergency(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val timestampStart: Timestamp,
-    val latStart: Double,
-    val lngStart: Double,
-    val timestampFinish: Timestamp,
-    val latFinish: Double,
-    val lngFinish: Double,
-    val duration: Int,
-    val orangTerpercaya: OrangTerpercaya,
-    val isActive: Boolean
+    val timestampStart: Date? = null,
+    val latStart: Double? = null,
+    val lngStart: Double? = null,
+    var timestampFinish: Date? = null,
+    var latFinish: Double? = null,
+    var lngFinish: Double? = null,
+    val duration: Int? = null,
+    val orangTerpercaya: String? = null,
+    var isActive: Boolean? = null
 ) {
-    private fun formatTime(timestamp: Timestamp): String {
+    private fun formatTime(timestamp: Date): String {
         val pattern = "yyyy-MM-dd"
         val simpleDateFormat = SimpleDateFormat(pattern)
         return simpleDateFormat.format(timestamp);
     }
 
-    val startTimeFormatted: String = formatTime(timestampStart)
-    val finishTimeFormatted: String = formatTime(timestampFinish)
+    fun startTimeFormatted(): String? { return timestampStart?.let { formatTime(it) }
+    }
+    fun finishTimeFormatted(): String? {return timestampFinish?.let { formatTime(it) }
+    }
 }

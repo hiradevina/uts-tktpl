@@ -22,4 +22,8 @@ class EmergencyRepository(private val emergencyDao: EmergencyDao) {
     fun get(id: Int): Emergency {
         return emergencyDao.get(id)
     }
+
+    fun update(emergency: Emergency) {
+        return emergencyDao.update(emergency)
+    }
 }

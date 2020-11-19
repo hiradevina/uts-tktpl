@@ -19,13 +19,27 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment2"
-        android:name="id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.list_orang_terpercaya.ListOrangTerpercayaFragment"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/list_orang_terpercaya_fragment"
+            android:name="id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.list_orang_terpercaya.ListOrangTerpercayaFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/detail_orang_terpercaya_fragment"
+            android:name="id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.list_orang_terpercaya.DetailOrangTerpercaya"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2" />
+    </LinearLayout>
+
 
     <include layout="@layout/content_orang_terpercaya" />
 

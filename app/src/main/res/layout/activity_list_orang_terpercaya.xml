@@ -6,13 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.list_orang_terpercaya.OrangTerpercayaActivity">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment"
-            android:name="id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.list_orang_terpercaya.ListOrangTerpercayaFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
     <include layout="@layout/content_orang_terpercaya" />

@@ -1,5 +1,6 @@
 package id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.add_profile
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -7,6 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.R
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.databinding.ActivityAddOrangTerpercayaBinding
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.databinding.ActivityAddProfileBinding
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.add_emergency.AddEmergencyActivity
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.list_orang_terpercaya.OrangTerpercayaActivity
 import kotlinx.android.synthetic.main.activity_add_profile.*
 
 class AddProfileActivity : AppCompatActivity() {
@@ -21,6 +24,8 @@ class AddProfileActivity : AppCompatActivity() {
 
         addprofile_button_submit.setOnClickListener {
             addProfileViewModel.insert()
+            val intent = Intent(this, AddEmergencyActivity::class.java)
+            startActivity(intent)
         }
     }
 }

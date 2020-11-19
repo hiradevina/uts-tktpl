@@ -1,3 +1,4 @@
+package id.ac.ui.cs.mobileprogramming.hira.lifechecker.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil

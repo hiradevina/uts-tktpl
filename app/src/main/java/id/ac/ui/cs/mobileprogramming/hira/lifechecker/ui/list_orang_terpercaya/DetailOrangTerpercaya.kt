@@ -1,60 +1,73 @@
 package id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.list_orang_terpercaya
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.R
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.databinding.FragmentDetailOrangTerpercayaBinding
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.OrangTerpercaya
+import kotlinx.android.synthetic.main.fragment_detail_orang_terpercaya.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailOrangTerpercaya.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailOrangTerpercaya : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    companion object {
+        val ARG_POSITION = "position"
+    }
+
+    var mCurrentPosition = -1
+
+    private lateinit var viewModel: ListOrangTerpercayaViewModel
+    private lateinit var binding: FragmentDetailOrangTerpercayaBinding
+
+    var callback: onOrangTerpercayaChoosenListener? = null
+
+    interface onOrangTerpercayaChoosenListener {
+        fun onOrangTerpercayaChoosen(orangTerpercaya: OrangTerpercaya)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        if (savedInstanceState != null) {
+            mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
         }
+        viewModel = ViewModelProvider(this).get(ListOrangTerpercayaViewModel::class.java)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_orang_terpercaya, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_orang_terpercaya,container,false)
+        binding.lifecycleOwner = this
+        val args = arguments
+        if (args != null) {
+            // Set article based on argument passed in
+            updateOrangTerpercaya(args.getInt(ARG_POSITION))
+        } else if (mCurrentPosition != -1) {
+            // Set article based on saved instance state defined during onCreateView
+            updateOrangTerpercaya(mCurrentPosition)
+        }
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailOrangTerpercaya.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailOrangTerpercaya().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    fun updateOrangTerpercaya(position: Int) {
+        binding.orangTerpercaya = viewModel.getSelectedOrangTerpercaya(position)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        button_detailorangterpercaya.setOnClickListener {
+
+        }
     }
 }

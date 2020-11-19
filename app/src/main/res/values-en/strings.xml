@@ -27,4 +27,5 @@
     <string name="addemergency_addbutton_title">Turn On Lifechecker</string>
     <string name="fab_tambahorangterpercaya_title">Add Trusted Person</string>
     <string name="permission_rationale">Select \"Don\'t Ask Again\" to remove this</string>
+    <string name="button_stop">Stop Lifecheck</string>
 </resources>

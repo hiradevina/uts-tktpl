@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.R
 import kotlinx.android.synthetic.main.activity_add_orang_terpercaya.*
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.databinding.ActivityAddOrangTerpercayaBinding
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.countdown.CountDownActivity
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.list_orang_terpercaya.OrangTerpercayaActivity
 
 class AddOrangTerpercayaActivity : AppCompatActivity() {
@@ -29,8 +30,9 @@ class AddOrangTerpercayaActivity : AppCompatActivity() {
         }
         addorangterpercaya_button_submit.setOnClickListener {
             addOrangTerpercayaViewModel.insert()
-            val intent = Intent(this, OrangTerpercayaActivity::class.java)
+            val intent = Intent(this, CountDownActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 

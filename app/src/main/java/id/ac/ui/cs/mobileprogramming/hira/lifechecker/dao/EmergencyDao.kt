@@ -1,10 +1,7 @@
 package id.ac.ui.cs.mobileprogramming.hira.lifechecker.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.Emergency
 
 @Dao
@@ -21,6 +18,6 @@ interface EmergencyDao {
     @Query("SELECT * FROM emergency where isActive= 1")
     fun getActiveLifecheck(): LiveData<List<Emergency>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg emergency: Emergency)
 }
