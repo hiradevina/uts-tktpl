@@ -13,8 +13,7 @@ interface OrangTerpercayaDao {
     fun getAll(): LiveData<List<OrangTerpercaya>>
 
     @Query("SELECT * from orang_terpercaya_table where id= :id")
-    fun getOrangTerpercaya(vararg id: Int) : OrangTerpercaya
+    suspend fun getOrangTerpercaya(vararg id: Int) : OrangTerpercaya
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addOrangTerpercaya(vararg orangTerpercaya: OrangTerpercaya)
-}
+    fun addOrangTerpercaya(vararg orangTerpercaya: OrangTerpercaya) }

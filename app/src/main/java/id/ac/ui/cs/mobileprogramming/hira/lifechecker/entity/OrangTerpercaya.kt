@@ -12,4 +12,4 @@ class OrangTerpercaya(
     val notelp: String? = null,
     val relasi: String? = null,
     val foto: String? = null
-) : Serializable
+)

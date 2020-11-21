@@ -9,6 +9,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.add_emergency.AddEmergencyActivity
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.add_profile.AddProfileActivity
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.countdown.CountDownActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
@@ -17,12 +18,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         setContentView(R.layout.activity_main)
-        if (viewModel.isProfileExist()) {
-            val intent = Intent(this, AddEmergencyActivity::class.java)
-            startActivity(intent)
-        } else {
-            val intent = Intent(this, AddProfileActivity::class.java)
-            startActivity(intent)
+        when {
+            viewModel.isLifecheckRunning() -> {
+                val intent = Intent(this, CountDownActivity::class.java)
+                startActivity(intent)
+            }
+            viewModel.isProfileExist() -> {
+                val intent = Intent(this, AddEmergencyActivity::class.java)
+                startActivity(intent)
+            }
+            else -> {
+                val intent = Intent(this, AddProfileActivity::class.java)
+                startActivity(intent)
+            }
         }
 
     }

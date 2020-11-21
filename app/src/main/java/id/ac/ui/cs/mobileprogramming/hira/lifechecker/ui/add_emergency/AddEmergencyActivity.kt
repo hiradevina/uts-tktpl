@@ -32,6 +32,8 @@ import id.ac.ui.cs.mobileprogramming.hira.lifechecker.constants.AppConstants
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.databinding.ActivityAddEmergencyBinding
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.OrangTerpercaya
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.receiver.AlertReceiver
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.add_orang_terpercaya.AddOrangTerpercayaActivity
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.countdown.CountDownActivity
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.list_orang_terpercaya.OrangTerpercayaActivity
 import kotlinx.android.synthetic.main.activity_add_emergency.*
 import java.security.AccessController.getContext
@@ -44,7 +46,6 @@ class AddEmergencyActivity : AppCompatActivity() {
     private val CAMERA_PERMISSION_CODE = 1000;
     private val IMAGE_INTENT_CODE = 1001
     private val LOCATION_PERMISSION_CODE = 34
-    private val REQUEST_SMS_PERMISSION = 101
     private val ORANGTERPERCAYA_INTENT_CODE = 888
 
     private lateinit var viewModel: AddEmergencyViewModel
@@ -69,6 +70,8 @@ class AddEmergencyActivity : AppCompatActivity() {
             }
             viewModel.insert()
             setAlarm()
+            val intent = Intent(this, CountDownActivity::class.java)
+            startActivity(intent)
         }
 
         addemergency_foto_button.setOnClickListener {
@@ -99,6 +102,11 @@ class AddEmergencyActivity : AppCompatActivity() {
         addemergency_selectorangterpercaya_button.setOnClickListener {
             var intent = Intent(this, OrangTerpercayaActivity::class.java)
             startActivityForResult(intent, ORANGTERPERCAYA_INTENT_CODE)
+        }
+
+        fab_tambahorangterpercaya.setOnClickListener {
+            var intent = Intent(this, AddOrangTerpercayaActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -195,15 +203,6 @@ class AddEmergencyActivity : AppCompatActivity() {
                 //permission from popup was denied
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
             }
-        } else if (requestCode == REQUEST_SMS_PERMISSION) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                myMessage();
-            } else {
-                Toast.makeText(
-                    this, "You don't have required permission to send a message",
-                    Toast.LENGTH_SHORT
-                ).show();
-            }
         }
     }
 
@@ -225,36 +224,6 @@ class AddEmergencyActivity : AppCompatActivity() {
             SystemClock.elapsedRealtime() + (viewModel.duration() * 1000),
             notificationReceiverIntent
         )
-    }
-
-    fun sendMessage(view: View) {
-        val permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            myMessage()
-        } else {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.SEND_SMS),
-                REQUEST_SMS_PERMISSION
-            )
-        }
-    }
-
-    private fun myMessage() {
-//        val myNumber: String = editTextNumber.text.toString().trim()
-//        val myMsg: String = editTextMessage.text.toString().trim()
-        val myNumber: String = ""
-        val myMsg: String = ""
-        if (myNumber == "" || myMsg == "") {
-            Toast.makeText(this, "Field cannot be empty", Toast.LENGTH_SHORT).show()
-        } else {
-            if (TextUtils.isDigitsOnly(myNumber)) {
-                val smsManager: SmsManager = SmsManager.getDefault()
-                smsManager.sendTextMessage(myNumber, null, myMsg, null, null)
-                Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Please enter the correct number", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -18,9 +18,6 @@ import java.time.ZoneId
 import java.util.*
 
 class CountdownViewModel(application: Application) : AndroidViewModel(application) {
-    var hour = MutableLiveData<String>("00")
-    var minute = MutableLiveData<String>("00")
-    var second = MutableLiveData<String>("00")
     var duration:Long? = 0
 
     private val repository: EmergencyRepository
@@ -34,10 +31,8 @@ class CountdownViewModel(application: Application) : AndroidViewModel(applicatio
                 emergencyDao
             )
         val emergency = repository.getActiveLifecheck()
-        //emergency?.timestampStart
-        val cal = Calendar.getInstance()
-        val finishTimeInEpoch: Long? = emergency?.duration?.times(1000)?.plus(emergency.timestampStart?.time ?: 0)
-        duration = finishTimeInEpoch?.minus(cal.time.time)?.div(1000)
+        val finishTimeInEpoch: Long? = emergency?.duration?.times(1000)?.plus(emergency.timestampStart ?: 0)
+        duration = finishTimeInEpoch?.minus(System.currentTimeMillis())?.div(1000)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -45,8 +40,7 @@ class CountdownViewModel(application: Application) : AndroidViewModel(applicatio
         val runningLifecheck: Emergency? = repository.getActiveLifecheck()
         runningLifecheck?.latFinish = mLocation?.latitude
         runningLifecheck?.lngFinish = mLocation?.longitude
-        runningLifecheck?.timestampFinish = Date.from((now().atZone(ZoneId.systemDefault())
-            .toInstant()))
+        runningLifecheck?.timestampFinish = System.currentTimeMillis()
         runningLifecheck?.isActive = false
         if (runningLifecheck != null) {
             repository.update(runningLifecheck)

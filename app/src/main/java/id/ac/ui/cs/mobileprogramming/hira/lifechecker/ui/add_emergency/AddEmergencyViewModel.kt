@@ -53,8 +53,7 @@ class AddEmergencyViewModel(application: Application) : AndroidViewModel(applica
             repository.insert(
                 Emergency(
                     0,
-                    Date.from((LocalDateTime.now().atZone(ZoneId.systemDefault())
-                        .toInstant())),
+                    System.currentTimeMillis(),
                     latitude.value,
                     longitude.value,
                     null,

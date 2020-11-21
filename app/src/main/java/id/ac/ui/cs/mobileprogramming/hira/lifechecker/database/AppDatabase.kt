@@ -3,6 +3,8 @@ package id.ac.ui.cs.mobileprogramming.hira.lifechecker.database
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.MyTypeConverter
 import android.content.Context
 import androidx.room.*
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.dao.EmergencyDao
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.OrangTerpercaya
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.dao.OrangTerpercayaDao
@@ -10,17 +12,22 @@ import id.ac.ui.cs.mobileprogramming.hira.lifechecker.dao.ProfileDao
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.Profile
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.Emergency
 
-@Database(entities = [OrangTerpercaya::class, Profile::class, Emergency::class], exportSchema = false, version = 1)
+@Database(
+    entities = [OrangTerpercaya::class, Profile::class, Emergency::class],
+    exportSchema = false,
+    version = 2
+)
 @TypeConverters(MyTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     // daos
     abstract fun orangTerpercayaDao(): OrangTerpercayaDao
-    abstract fun profileDao() : ProfileDao
-    abstract fun emergencyDao() : EmergencyDao
+    abstract fun profileDao(): ProfileDao
+    abstract fun emergencyDao(): EmergencyDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
         // same time.
+
         @Volatile
         private var INSTANCE: AppDatabase? = null
 
@@ -30,7 +37,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }

@@ -92,7 +92,6 @@
                     android:id="@+id/addprofile_button_submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:enabled="@{AddProfileViewModel.valid}"
                     android:paddingTop="8dp"
                     android:text="@string/addprofile_button_title" />
             </LinearLayout>

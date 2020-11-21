@@ -69,7 +69,6 @@
                     />
 
                 <Button
-                    android:visibility="@{orang_terpercaya_form.showAddPhotoButton()}"
                     android:paddingTop="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,7 +82,6 @@
                     android:id="@+id/foto_placeholder" />
 
                 <Button
-                    android:enabled="@{orang_terpercaya_form.valid}"
                     android:paddingTop="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

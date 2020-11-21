@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "profile")
 class Profile(
     @PrimaryKey val nama: String,
-    val alamat: String,
-    val golonganDarah: String,
-    val notelp: String
+    val alamat: String? = null,
+    val golonganDarah: String? = null,
+    val notelp: String? = null
 )

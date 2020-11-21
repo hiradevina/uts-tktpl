@@ -33,22 +33,27 @@ class AddOrangTerpercayaViewModel(application: Application) : AndroidViewModel(a
         allOrangTerpercaya = repository.allOrangTerpercaya
     }
 
-    fun insert() = viewModelScope.launch(Dispatchers.IO) {
+    fun insert() {
         if (isValid()) {
+            Log.d("AddOranercayaViewModel", "insert")
             repository.add(
                 OrangTerpercaya(
                     0,
-                    nama.value.toString(),
-                    notelp.value.toString(),
-                    relasi.value.toString(),
-                    foto.value.toString()
+                    nama.value!!,
+                    notelp.value!!,
+                    relasi.value!!,
+                    foto.value!!
                 )
             )
         }
-
     }
 
+
     fun isValid(): Boolean {
+        Log.d("ViewModel", "nama ${nama.value}")
+        Log.d("ViewModel", "nama ${relasi.value}")
+        Log.d("ViewModel", "nama ${notelp.value}")
+        Log.d("ViewModel", "nama ${foto.value}")
         return !TextUtils.isEmpty(nama.value) && !TextUtils.isEmpty(relasi.value) && !TextUtils.isEmpty(
             notelp.value
         ) && !TextUtils.isEmpty(foto.value)

@@ -10,9 +10,8 @@ import id.ac.ui.cs.mobileprogramming.hira.lifechecker.R
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.databinding.OrangTerpercayaItemListBinding
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.helper.RecyclerviewOnClickListener
 
-class OrangTerpercayaAdapter(onClickListener: RecyclerviewOnClickListener) :
+class OrangTerpercayaAdapter(private var mOnClickListener: RecyclerviewOnClickListener) :
     RecyclerView.Adapter<OrangTerpercayaAdapter.OrangTerpercayaViewHolder>() {
-    private var mOnClickListener = onClickListener
     private var listOrangTerpercaya = emptyList<OrangTerpercaya>()
     private lateinit var context: Context
     // Provide a reference to the views for each data item
@@ -46,11 +45,11 @@ class OrangTerpercayaAdapter(onClickListener: RecyclerviewOnClickListener) :
         // - replace the contents of the view with that element
         holder.recyclerViewOrangTerpercayaBinding.orangTerpercaya = listOrangTerpercaya[position]
         holder.itemView.setOnClickListener {
-            mOnClickListener.recyclerviewClick(position)
+            mOnClickListener.recyclerviewClick(listOrangTerpercaya[position].id!!)
         }
     }
 
-    internal  fun setOrangTerpercaya(listOrangTerpercaya: List<OrangTerpercaya>) {
+    fun setOrangTerpercaya(listOrangTerpercaya: List<OrangTerpercaya>) {
         this.listOrangTerpercaya = listOrangTerpercaya
         notifyDataSetChanged()
     }

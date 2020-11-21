@@ -52,8 +52,7 @@ class LifecheckerService : IntentService("LifecheckerService") {
             val runningLifecheck: Emergency? = repository.getActiveLifecheck()
             runningLifecheck?.latFinish = mLocation?.latitude
             runningLifecheck?.lngFinish = mLocation?.longitude
-            runningLifecheck?.timestampFinish = Date.from((LocalDateTime.now().atZone(ZoneId.systemDefault())
-                .toInstant()))
+            runningLifecheck?.timestampFinish = System.currentTimeMillis()
             runningLifecheck?.isActive = false
             if (runningLifecheck != null) {
                 repository.update(runningLifecheck)

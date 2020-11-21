@@ -41,20 +41,21 @@ class ListOrangTerpercayaFragment : Fragment(), RecyclerviewOnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ListOrangTerpercayaViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(ListOrangTerpercayaViewModel::class.java)
         viewAdapter =
             OrangTerpercayaAdapter(this)
+        my_recycler_view.also {
+            it.layoutManager = LinearLayoutManager(context)
+            it.setHasFixedSize(true)
+            it.adapter = viewAdapter
+        }
         viewModel.allOrangTerpercaya.observe(viewLifecycleOwner, Observer {
                 orangTerpercaya ->
             orangTerpercaya?.let {
                 viewAdapter.setOrangTerpercaya(it)
             }
         })
-        my_recycler_view.also {
-            it.layoutManager = LinearLayoutManager(view?.context)
-            it.setHasFixedSize(true)
-            it.adapter = viewAdapter
-        }
+
 
     }
 

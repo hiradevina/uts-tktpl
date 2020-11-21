@@ -2,6 +2,7 @@ package id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.list_orang_terpercaya
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,7 @@ class DetailOrangTerpercaya : Fragment() {
 
     var mCurrentPosition = -1
 
-    private lateinit var viewModel: ListOrangTerpercayaViewModel
+    private lateinit var viewModel: DetailOrangTerpercayaViewModel
     private lateinit var binding: FragmentDetailOrangTerpercayaBinding
 
     var callback: onOrangTerpercayaChoosenListener? = null
@@ -36,7 +37,7 @@ class DetailOrangTerpercaya : Fragment() {
         if (savedInstanceState != null) {
             mCurrentPosition = savedInstanceState.getInt(ARG_POSITION);
         }
-        viewModel = ViewModelProvider(this).get(ListOrangTerpercayaViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(DetailOrangTerpercayaViewModel::class.java)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -51,8 +52,10 @@ class DetailOrangTerpercaya : Fragment() {
         binding.lifecycleOwner = this
         val args = arguments
         if (args != null) {
+            Log.d("detailorangterpercaya", "print args $args")
             // Set article based on argument passed in
             updateOrangTerpercaya(args.getInt(ARG_POSITION))
+
         } else if (mCurrentPosition != -1) {
             // Set article based on saved instance state defined during onCreateView
             updateOrangTerpercaya(mCurrentPosition)
@@ -62,12 +65,8 @@ class DetailOrangTerpercaya : Fragment() {
 
     fun updateOrangTerpercaya(position: Int) {
         binding.orangTerpercaya = viewModel.getSelectedOrangTerpercaya(position)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
         button_detailorangterpercaya.setOnClickListener {
-
+            callback?.onOrangTerpercayaChoosen(viewModel.getSelectedOrangTerpercaya(position))
         }
     }
 }

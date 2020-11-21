@@ -29,19 +29,19 @@ class AddProfileViewModel(application: Application) : AndroidViewModel(applicati
         if (isValid()) {
             repository.add(
                 Profile(
-                    nama.value.toString(),
-                    alamat.value.toString(),
-                    golonganDarah.value.toString(),
-                    notelp.value.toString()
+                    nama.value!!,
+                    alamat.value!!,
+                    golonganDarah.value!!,
+                    notelp.value!!
                 )
             )
         }
     }
 
     fun isValid(): Boolean {
-        return (!TextUtils.isEmpty(nama.value)) && (!TextUtils.isEmpty((alamat.value))) && (!TextUtils.isEmpty(
+        return !TextUtils.isEmpty(nama.value) && !TextUtils.isEmpty(alamat.value) && !TextUtils.isEmpty(
             golonganDarah.value
-        )) && (!TextUtils.isEmpty((notelp.value)))
+        ) && !TextUtils.isEmpty(notelp.value)
     }
 
 }

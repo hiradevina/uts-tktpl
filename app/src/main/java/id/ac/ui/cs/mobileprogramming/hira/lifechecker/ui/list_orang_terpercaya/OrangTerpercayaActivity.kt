@@ -3,6 +3,7 @@ package id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.list_orang_terpercaya
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
@@ -77,8 +78,9 @@ class OrangTerpercayaActivity : FragmentActivity(), ListOrangTerpercayaFragment.
     }
 
     override fun onOrangTerpercayaChoosen(orangTerpercaya: OrangTerpercaya) {
+        Log.d("onOranrpercayaChoosen", "here")
         setResult(Activity.RESULT_OK,
-            Intent().putExtra("orang_terpercaya", orangTerpercaya as Serializable))
+            Intent().putExtra("orang_terpercaya", orangTerpercaya.nama))
         finish()
     }
 }

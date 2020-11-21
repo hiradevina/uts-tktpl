@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.R
@@ -29,9 +30,8 @@ class AddOrangTerpercayaActivity : AppCompatActivity() {
             launchGallery()
         }
         addorangterpercaya_button_submit.setOnClickListener {
+            Log.d("AddOrangTerpectivity", "on click listener")
             addOrangTerpercayaViewModel.insert()
-            val intent = Intent(this, CountDownActivity::class.java)
-            startActivity(intent)
             finish()
         }
     }

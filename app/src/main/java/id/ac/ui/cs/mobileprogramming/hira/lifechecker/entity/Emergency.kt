@@ -10,10 +10,10 @@ import java.util.*
 @TypeConverters(MyTypeConverter::class)
 class Emergency(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val timestampStart: Date? = null,
+    val timestampStart: Long? = null,
     val latStart: Double? = null,
     val lngStart: Double? = null,
-    var timestampFinish: Date? = null,
+    var timestampFinish: Long? = null,
     var latFinish: Double? = null,
     var lngFinish: Double? = null,
     val duration: Int? = null,
@@ -26,8 +26,8 @@ class Emergency(
         return simpleDateFormat.format(timestamp);
     }
 
-    fun startTimeFormatted(): String? { return timestampStart?.let { formatTime(it) }
+    fun startTimeFormatted(): String? { return timestampStart?.let { formatTime(Date(it)) }
     }
-    fun finishTimeFormatted(): String? {return timestampFinish?.let { formatTime(it) }
+    fun finishTimeFormatted(): String? {return timestampFinish?.let { formatTime(Date(it)) }
     }
 }
