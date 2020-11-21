@@ -17,8 +17,8 @@ class OrangTerpercayaRepository(private val orangTerpercayaDao: OrangTerpercayaD
 
     }
 
-    fun get(id: Int): OrangTerpercaya {
-        return allOrangTerpercaya.value!!.first { it.id == id }
+    suspend fun get(id: Int): OrangTerpercaya {
+        return orangTerpercayaDao.getOrangTerpercaya(id)
     }
 
     private class InsertOrangTerpercayaAsyncTask(orangTerpercayaDao: OrangTerpercayaDao) :

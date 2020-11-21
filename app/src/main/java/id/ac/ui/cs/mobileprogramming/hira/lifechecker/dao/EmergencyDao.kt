@@ -13,10 +13,10 @@ interface EmergencyDao {
     fun update(emergency: Emergency)
 
     @Query("SELECT * FROM emergency where id= :id")
-    fun get(vararg id: Int): Emergency
+    suspend fun get(vararg id: Int): Emergency
 
     @Query("SELECT * FROM emergency where isActive= 1")
-    fun getActiveLifecheck(): LiveData<List<Emergency>>
+    suspend fun getActiveLifecheck(): List<Emergency>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg emergency: Emergency)

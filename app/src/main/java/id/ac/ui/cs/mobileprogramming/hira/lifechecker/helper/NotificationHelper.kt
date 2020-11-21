@@ -27,7 +27,7 @@ class NotificationHelper(base: Context?) : ContextWrapper(base) {
         val notificationChannel = NotificationChannel(
             channelID,
             channelname,
-            NotificationManager.IMPORTANCE_DEFAULT
+            NotificationManager.IMPORTANCE_HIGH
         )
         notificationChannel.enableLights(true)
         notificationChannel.enableVibration(true)

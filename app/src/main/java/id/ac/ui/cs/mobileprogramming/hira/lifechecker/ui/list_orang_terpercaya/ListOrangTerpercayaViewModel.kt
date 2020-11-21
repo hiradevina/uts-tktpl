@@ -24,8 +24,5 @@ class ListOrangTerpercayaViewModel(application: Application) : AndroidViewModel(
         allOrangTerpercaya = repository.allOrangTerpercaya
     }
 
-    fun getSelectedOrangTerpercaya(index: Int) : OrangTerpercaya {
-        return repository.get(index)
-    }
 
 }

@@ -2,6 +2,7 @@ package id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.add_emergency
 
 import android.app.Application
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -21,7 +22,7 @@ class AddEmergencyViewModel(application: Application) : AndroidViewModel(applica
     var hour = MutableLiveData<String>("00")
     var minute = MutableLiveData<String>("00")
     var second = MutableLiveData<String>("00")
-    var trustedPeople = MutableLiveData<OrangTerpercaya>()
+    var trustedPeople = MutableLiveData<String>()
     var fotoUri = MutableLiveData<String>()
     var latitude = MutableLiveData<Double>()
     var longitude = MutableLiveData<Double>()
@@ -49,7 +50,10 @@ class AddEmergencyViewModel(application: Application) : AndroidViewModel(applica
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun insert() = viewModelScope.launch(Dispatchers.IO) {
-
+        Log.d("insertemergency", "latitude ${latitude.value}")
+        Log.d("insertemergency", "longitude ${longitude.value}")
+        Log.d("insertemergency", "duration ${duration()}")
+        Log.d("insertemergency", "trusted people ${trustedPeople.value}")
             repository.insert(
                 Emergency(
                     0,
@@ -60,10 +64,11 @@ class AddEmergencyViewModel(application: Application) : AndroidViewModel(applica
                     null,
                     null,
                     duration(),
-                    trustedPeople.value?.nama,
+                    trustedPeople.value,
                     true
                 )
             )
+        Log.d("insertemergency", "done insert")
 
 
     }

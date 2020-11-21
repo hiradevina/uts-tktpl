@@ -9,9 +9,14 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.MutableLiveData
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.database.AppDatabase
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.Emergency
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.helper.Coroutines
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.repository.EmergencyRepository
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
@@ -37,11 +42,13 @@ class LifecheckerService : IntentService("LifecheckerService") {
     private var mLocationManager: LocationManager? = null
     private var mLocation: Location? = null
     private val repository: EmergencyRepository
+    private val job: Job? = null
+    private  val emergency = MutableLiveData<Emergency>()
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onHandleIntent(intent: Intent?) {
-        if (repository.isLifecheckRunning()) {
+        if (emergency.value != null) {
             try {
                 mLocation = mLocationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             } catch (ex: SecurityException) {
@@ -49,7 +56,7 @@ class LifecheckerService : IntentService("LifecheckerService") {
             } catch (ex: IllegalArgumentException) {
                 Log.d(TAG, "gps provider does not exist " + ex.message)
             }
-            val runningLifecheck: Emergency? = repository.getActiveLifecheck()
+            val runningLifecheck: Emergency? = emergency.value
             runningLifecheck?.latFinish = mLocation?.latitude
             runningLifecheck?.lngFinish = mLocation?.longitude
             runningLifecheck?.timestampFinish = System.currentTimeMillis()
@@ -67,6 +74,12 @@ class LifecheckerService : IntentService("LifecheckerService") {
             EmergencyRepository(
                 emergencyDao
             )
+        Coroutines.ioThenMain(
+            {repository.getActiveLifecheck()},
+            {emergency.value = it
+
+            }
+        )
     }
 
     override fun onCreate() {

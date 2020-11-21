@@ -12,8 +12,10 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.R
 import kotlinx.android.synthetic.main.activity_count_down.*
+import kotlinx.android.synthetic.main.fragment_detail_orang_terpercaya.*
 import java.util.*
 
 
@@ -22,6 +24,7 @@ class CountDownActivity : AppCompatActivity() {
     private val TAG = "CountdownActivity"
     private lateinit var viewModel: CountdownViewModel
     private var mLocationManager: LocationManager? = null
+    private var second:Long = 0
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +32,9 @@ class CountDownActivity : AppCompatActivity() {
         initializeLocationManager()
         viewModel = ViewModelProvider(this).get(CountdownViewModel::class.java)
         setContentView(R.layout.activity_count_down)
+        viewModel.duration.observe(this, androidx.lifecycle.Observer {
+            second = it
+        })
         button_stop.setOnClickListener {
             try {
                 if (ActivityCompat.checkSelfPermission(
@@ -62,10 +68,9 @@ class CountDownActivity : AppCompatActivity() {
         val handler = Handler()
         handler.post(object : Runnable {
             override fun run() {
-                var second = viewModel.duration
-                val hours = second?.div(3600)
-                val minutes = (second?.rem(3600) ?: 0) / 60
-                val sec = second?.rem(60)
+                val hours = second.div(3600)
+                val minutes = (second.rem(3600)) / 60
+                val sec = second.rem(60)
                 val timeFormat: String = java.lang.String.format(
                     Locale.getDefault(),
                     "%d:%02d:%02d",

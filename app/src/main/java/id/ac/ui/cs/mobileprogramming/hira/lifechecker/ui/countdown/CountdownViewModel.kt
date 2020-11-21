@@ -11,16 +11,22 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.database.AppDatabase
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.entity.Emergency
+import id.ac.ui.cs.mobileprogramming.hira.lifechecker.helper.Coroutines
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.repository.EmergencyRepository
+import kotlinx.coroutines.Job
 import java.time.LocalDateTime
 import java.time.LocalDateTime.now
 import java.time.ZoneId
 import java.util.*
 
 class CountdownViewModel(application: Application) : AndroidViewModel(application) {
-    var duration:Long? = 0
+    var duration = MutableLiveData<Long>()
+    private val TAG: String = "CountdownViewModel"
 
     private val repository: EmergencyRepository
+    private lateinit var job: Job
+
+    var emergency = MutableLiveData<Emergency>()
 
 
 
@@ -30,14 +36,32 @@ class CountdownViewModel(application: Application) : AndroidViewModel(applicatio
             EmergencyRepository(
                 emergencyDao
             )
-        val emergency = repository.getActiveLifecheck()
-        val finishTimeInEpoch: Long? = emergency?.duration?.times(1000)?.plus(emergency.timestampStart ?: 0)
-        duration = finishTimeInEpoch?.minus(System.currentTimeMillis())?.div(1000)
+        getEmergencyActive()
+
+    }
+
+    fun getEmergencyActive() {
+        job = Coroutines.ioThenMain(
+            {repository.getActiveLifecheck()},
+            {
+                if (it != null) {
+                    emergency.value = it
+                    Log.d(TAG, "emergency lifecheck detected: $it")
+                    val finishTimeInEpoch: Long? = it.duration!!.times(1000).plus(it.timestampStart!!)
+                    Log.d(TAG, "timestamp start ${it.timestampStart}")
+                    Log.d(TAG, "finishtime in epoch ${finishTimeInEpoch}")
+                    duration.value = finishTimeInEpoch?.minus(System.currentTimeMillis())?.div(1000)
+                    Log.d(TAG, "current time millis ${System.currentTimeMillis()}")
+                    Log.d(TAG, "duration ${duration.value}")
+                }
+
+            }
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun finishLifechecker(mLocation: Location?) {
-        val runningLifecheck: Emergency? = repository.getActiveLifecheck()
+        val runningLifecheck: Emergency? = emergency.value
         runningLifecheck?.latFinish = mLocation?.latitude
         runningLifecheck?.lngFinish = mLocation?.longitude
         runningLifecheck?.timestampFinish = System.currentTimeMillis()

@@ -1,6 +1,7 @@
 package id.ac.ui.cs.mobileprogramming.hira.lifechecker.ui.add_emergency
 
 import android.Manifest
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlarmManager
@@ -9,6 +10,7 @@ import android.app.PendingIntent.getActivity
 import android.content.*
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -26,6 +28,10 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.CancellationToken
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.snackbar.Snackbar
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.R
 import id.ac.ui.cs.mobileprogramming.hira.lifechecker.constants.AppConstants
@@ -40,10 +46,9 @@ import java.security.AccessController.getContext
 
 class AddEmergencyActivity : AppCompatActivity() {
     private val TAG: String = "AddEmergencyActivity"
-    private var mLastLocation: Location? = null
     var imageUri: Uri? = null
 
-    private val CAMERA_PERMISSION_CODE = 1000;
+    private val CAMERA_PERMISSION_CODE = 1000
     private val IMAGE_INTENT_CODE = 1001
     private val LOCATION_PERMISSION_CODE = 34
     private val ORANGTERPERCAYA_INTENT_CODE = 888
@@ -51,10 +56,9 @@ class AddEmergencyActivity : AppCompatActivity() {
     private lateinit var viewModel: AddEmergencyViewModel
     private lateinit var binding: ActivityAddEmergencyBinding
 
-    /**
-     * Provides the entry point to the Fused Location Provider API.
-     */
-    private var mFusedLocationClient: FusedLocationProviderClient? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,16 +66,15 @@ class AddEmergencyActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_emergency)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
         addemergency_submit_button.setOnClickListener {
             if (!checkPermissions()) {
                 requestLocationPermission()
             } else {
                 getLastLocation()
             }
-            viewModel.insert()
-            setAlarm()
-            val intent = Intent(this, CountDownActivity::class.java)
-            startActivity(intent)
+
         }
 
         addemergency_foto_button.setOnClickListener {
@@ -110,16 +113,25 @@ class AddEmergencyActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingPermission")
     private fun getLastLocation() {
-        mFusedLocationClient!!.lastLocation
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful && task.result != null) {
-                    mLastLocation = task.result
-                    viewModel.latitude.value = mLastLocation!!.latitude
-                    viewModel.longitude.value = mLastLocation!!.longitude
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            if (viewModel.latitude.value == null && viewModel.longitude.value == null) {
+                if (location != null) {
+                    viewModel.longitude.value = location.longitude
+                    viewModel.latitude.value = location.latitude
+                    viewModel.insert()
+                    Log.d("SetAlarm", "before call alarm")
+                    setAlarm()
+                    //val intent = Intent(this, CountDownActivity::class.java)
+                    //startActivity(intent)
                 }
             }
+
+
+        }
+
     }
 
     private fun checkPermissions(): Boolean {
@@ -127,40 +139,22 @@ class AddEmergencyActivity : AppCompatActivity() {
             this,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
-        return permissionState == PackageManager.PERMISSION_GRANTED
+        val permissionlagi = ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION)
+        return permissionState == PackageManager.PERMISSION_GRANTED && permissionlagi == PackageManager.PERMISSION_GRANTED
     }
 
     private fun startLocationPermissionRequest() {
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION),
             LOCATION_PERMISSION_CODE
         )
     }
 
     private fun requestLocationPermission() {
-        val shouldProvideRationale = ActivityCompat.shouldShowRequestPermissionRationale(
-            this,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        )
 
-        // Provide an additional rationale to the user. This would happen if the user denied the
-        // request previously, but didn't check the "Don't ask again" checkbox.
-        if (shouldProvideRationale) {
-            Log.i(TAG, "Displaying permission rationale to provide additional context.")
-            Snackbar.make(
-                findViewById(android.R.id.content),
-                R.string.permission_rationale,
-                Snackbar.LENGTH_LONG
-            ).setAction("Ok", View.OnClickListener {
-                startLocationPermissionRequest()
-            })
+        startLocationPermissionRequest()
 
-
-        } else {
-            Log.i(TAG, "Requesting permission")
-            startLocationPermissionRequest()
-        }
     }
 
     private fun openCamera() {
@@ -177,6 +171,7 @@ class AddEmergencyActivity : AppCompatActivity() {
     /**
      * Callback received when a permissions request has been completed.
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<String>,
         grantResults: IntArray
@@ -193,7 +188,7 @@ class AddEmergencyActivity : AppCompatActivity() {
             } else {
 
             }
-        } else if (requestCode == IMAGE_INTENT_CODE) {
+        } else if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] ==
                 PackageManager.PERMISSION_GRANTED
             ) {
@@ -208,6 +203,7 @@ class AddEmergencyActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun setAlarm() {
+        Log.d("SetAlarm", "call set alarm")
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlertReceiver::class.java)
         intent.putExtra(AppConstants.notificationTitleIntentKey, "Lifechecker")
@@ -219,11 +215,12 @@ class AddEmergencyActivity : AppCompatActivity() {
             this, 1, intent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-       alarmManager.set(
+        alarmManager.set(
             AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            SystemClock.elapsedRealtime() + (viewModel.duration() * 1000),
+            System.currentTimeMillis() + (viewModel.duration() * 1000),
             notificationReceiverIntent
         )
+        Log.d("SetAlarm", "set alarm done")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -234,8 +231,13 @@ class AddEmergencyActivity : AppCompatActivity() {
                 addemergency_foto_placeholder.setImageURI(imageUri)
                 viewModel.fotoUri.value = imageUri.toString()
             } else if (requestCode == ORANGTERPERCAYA_INTENT_CODE) {
-                viewModel.trustedPeople.value =
-                    data?.getSerializableExtra("orang_terpercaya") as OrangTerpercaya
+                if (data != null) {
+                    if (data.extras != null) {
+                        viewModel.trustedPeople.value =
+                            data.extras!!["orang_terpercaya"] as String?
+                    }
+                }
+
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
